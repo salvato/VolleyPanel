@@ -42,8 +42,8 @@ VolleyPanel::VolleyPanel(const QString& myServerUrl, QFile *myLogFile, QWidget *
     // the widget's children, overriding any system defaults for that role.
     panelPalette = QWidget::palette();
     panelGradient = QLinearGradient(0.0, 0.0, 0.0, height());
-    panelGradient.setColorAt(0, QColor(0, 0, 16));
-    panelGradient.setColorAt(1, QColor(0, 0, 48));
+    panelGradient.setColorAt(0, QColor(0, 0, START_GRADIENT));
+    panelGradient.setColorAt(1, QColor(0, 0, END_GRADIENT));
     panelBrush = QBrush(panelGradient);
     panelPalette.setBrush(QPalette::Active, QPalette::Window, panelBrush);
     panelPalette.setColor(QPalette::WindowText,    Qt::yellow);

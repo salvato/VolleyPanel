@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 
 #include "messagewindow.h"
+#include "utility.h"
 
 
 #define MOVE_TIME 2000
@@ -38,15 +39,18 @@ MessageWindow::MessageWindow(QWidget *parent)
     Q_UNUSED(parent);
 
     // The palette used by this window and the label shown
-    pal = QWidget::palette();
-    pal.setColor(QPalette::Window,        Qt::black);
-    pal.setColor(QPalette::WindowText,    Qt::yellow);
-    pal.setColor(QPalette::Base,          Qt::black);
-    pal.setColor(QPalette::AlternateBase, Qt::blue);
-    pal.setColor(QPalette::Text,          Qt::yellow);
-    pal.setColor(QPalette::BrightText,    Qt::white);
-    // Set the used palette
-    setPalette(pal);
+    panelPalette = QWidget::palette();
+    panelGradient = QLinearGradient(0.0, 0.0, 0.0, height());
+    panelGradient.setColorAt(0, QColor(0, 0, START_GRADIENT));
+    panelGradient.setColorAt(1, QColor(0, 0, END_GRADIENT));
+    panelBrush = QBrush(panelGradient);
+    panelPalette.setBrush(QPalette::Active, QPalette::Window, panelBrush);
+    panelPalette.setColor(QPalette::WindowText,    Qt::yellow);
+    panelPalette.setColor(QPalette::Base,          Qt::black);
+    panelPalette.setColor(QPalette::AlternateBase, Qt::blue);
+    panelPalette.setColor(QPalette::Text,          Qt::yellow);
+    panelPalette.setColor(QPalette::BrightText,    Qt::white);
+    setPalette(panelPalette);
 
     // The Label with the message.
     // Since it has a No Parent it is a QWidget that we can move !

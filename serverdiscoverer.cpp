@@ -211,7 +211,7 @@ ServerDiscoverer::onProcessDiscoveryPendingDatagrams() {
  */
 void
 ServerDiscoverer::checkServerAddresses() {
-    panelType = FIRST_PANEL;
+    panelType = 0;
     connect(&serverConnectionTimeoutTimer, SIGNAL(timeout()),
             this, SLOT(onServerConnectionTimeout()));
     serverConnectionTimeoutTimer.start(SERVER_CONNECTION_TIMEOUT);

@@ -47,7 +47,9 @@ public:
 
 private:
     QPoint newLabelPosition();
-    QPalette pal;
+    QPalette panelPalette;
+    QLinearGradient panelGradient;
+    QBrush panelBrush;
 
 private:
     QLabel *pMyLabel;

@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QApplication>
 
 #include "slidewindow.h"
+#include "utility.h"
 
 
 #define STEADY_SHOW_TIME       5000 // Change slide time
@@ -63,8 +64,8 @@ SlideWindow::SlideWindow(QWidget *parent)
 
     panelPalette = QWidget::palette();
     panelGradient = QLinearGradient(0.0, 0.0, 0.0, height());
-    panelGradient.setColorAt(0, QColor(0, 0, 16));
-    panelGradient.setColorAt(1, QColor(0, 0, 48));
+    panelGradient.setColorAt(0, QColor(0, 0, START_GRADIENT));
+    panelGradient.setColorAt(1, QColor(0, 0, END_GRADIENT));
     panelBrush = QBrush(panelGradient);
     panelPalette.setBrush(QPalette::Active, QPalette::Window, panelBrush);
     panelPalette.setColor(QPalette::WindowText,    Qt::yellow);

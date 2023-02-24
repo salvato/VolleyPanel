@@ -16,11 +16,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
-#include "timeoutwindow.h"
 #include <QVBoxLayout>
 #include <QResizeEvent>
 #include <QGuiApplication>
 #include <QScreen>
+
+#include "timeoutwindow.h"
+#include "utility.h"
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
     #define horizontalAdvance width
@@ -48,8 +50,8 @@ TimeoutWindow::TimeoutWindow(QWidget *parent)
 
     panelPalette = QWidget::palette();
     panelGradient = QLinearGradient(0.0, 0.0, 0.0, height);
-    panelGradient.setColorAt(0, QColor(0, 0, 16));
-    panelGradient.setColorAt(1, QColor(0, 0, 48));
+    panelGradient.setColorAt(0, QColor(0, 0, START_GRADIENT));
+    panelGradient.setColorAt(1, QColor(0, 0, END_GRADIENT));
     panelBrush = QBrush(panelGradient);
     panelPalette.setBrush(QPalette::Active, QPalette::Window, panelBrush);
     panelPalette.setColor(QPalette::WindowText,    Qt::yellow);
