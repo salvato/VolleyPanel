@@ -1041,8 +1041,8 @@ ScorePanel::onTextMessageReceived(QString sMessage) {
 
         QCoreApplication::removeTranslator(&application->Translator);
         if(sToken == QString("English")) {
-            application->Translator.load(":/panelChooser_en");
-            QCoreApplication::installTranslator(&application->Translator);
+            if(application->Translator.load(":/panelChooser_en"))
+                QCoreApplication::installTranslator(&application->Translator);
         }
         else {
             sToken = QString("Italiano");
