@@ -35,7 +35,7 @@ HEADERS += \
     volleypanel.h
 
 
-RC_ICONS = myLogo.ico
+RC_ICONS = Logo.ico
 
 TRANSLATIONS += \
     VolleyPanel_en_US.ts
