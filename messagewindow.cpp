@@ -68,7 +68,7 @@ MessageWindow::MessageWindow(QWidget *parent)
     painter.drawText(QPoint(rW, 12), sNewText);
     rW = f.horizontalAdvance(sProducer);
     rW = (logo.width()-rW)/2;
-    painter.setPen(QColor(255,34,255,255));
+    painter.setPen(QColor(255,255,128,255));
     painter.drawText(QPoint(rW, logo.height()-12), sProducer);
     pMyLabel->setPixmap(logo);
     pMyLabel->move(newLabelPosition());

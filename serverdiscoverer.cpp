@@ -96,9 +96,6 @@ ServerDiscoverer::Discover() {
             QUdpSocket* pDiscoverySocket = new QUdpSocket(this);
             // We need to save all the created sockets...
             discoverySocketArray.append(pDiscoverySocket);
-            // To manage socket errors
-            connect(pDiscoverySocket, SIGNAL(error(QAbstractSocket::SocketError)),
-                    this, SLOT(onDiscoverySocketError(QAbstractSocket::SocketError)));
             // To manage the messages from the socket
             connect(pDiscoverySocket, SIGNAL(readyRead()),
                     this, SLOT(onProcessDiscoveryPendingDatagrams()));
@@ -138,21 +135,6 @@ ServerDiscoverer::Discover() {
         serverConnectionTimeoutTimer.start(SERVER_CONNECTION_TIMEOUT);
     }
     return bStarted;
-}
-
-
-/*!
- * \brief ServerDiscoverer::onDiscoverySocketError
- * \param socketError
- */
-void
-ServerDiscoverer::onDiscoverySocketError(QAbstractSocket::SocketError socketError) {
-    Q_UNUSED(socketError)
-    QUdpSocket *pClient = qobject_cast<QUdpSocket *>(sender());
-    logMessage(logFile,
-               Q_FUNC_INFO,
-               pClient->errorString());
-    return;
 }
 
 

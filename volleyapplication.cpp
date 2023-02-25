@@ -28,8 +28,8 @@ VolleyApplication::VolleyApplication(int &argc, char **argv)
                QString("Initial Language: %1").arg(sLanguage));
 #endif
     if(sLanguage == QString("English")) {
-        Translator.load(":/panelChooser_en");
-        QCoreApplication::installTranslator(&Translator);
+        if(Translator.load(":/panelChooser_en"))
+            QCoreApplication::installTranslator(&Translator);
     }
 
     // We want the cursor set for all widgets,

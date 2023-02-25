@@ -4,5 +4,6 @@
         <file>Logo_UniMe.png</file>
         <file>myLogo.png</file>
         <file>SSD_UniMe.png</file>
+        <file>myLogo.ico</file>
     </qresource>
 </RCC>

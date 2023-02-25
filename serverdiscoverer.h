@@ -45,7 +45,6 @@ signals:
 
 private slots:
     void onProcessDiscoveryPendingDatagrams();
-    void onDiscoverySocketError(QAbstractSocket::SocketError error);
     void onPanelServerConnected();
     void onPanelServerSocketError(QAbstractSocket::SocketError error);
     void onServerConnectionTimeout();
