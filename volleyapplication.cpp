@@ -8,7 +8,6 @@
 #include "volleyapplication.h"
 #include "serverdiscoverer.h"
 #include "messagewindow.h"
-#include "utility.h"
 
 
 #define NETWORK_CHECK_TIME    3000 // In msec

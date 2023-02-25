@@ -74,6 +74,13 @@ SlideWindow::SlideWindow(QWidget *parent)
     panelPalette.setColor(QPalette::Text,          Qt::yellow);
     panelPalette.setColor(QPalette::BrightText,    Qt::white);
     setPalette(panelPalette);
+    QList<QScreen*> screens = QApplication::screens();
+    if(screens.count() > 1) {
+        QRect screenres = screens.at(1)->geometry();
+        QPoint point = QPoint(screenres.x(), screenres.y());
+        move(point);
+        resize(screenres.width(), screenres.height());
+    }
 }
 
 

@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QTime>
 #include <QPainter>
+#include <QApplication>
 
 #include "messagewindow.h"
 #include "utility.h"
@@ -76,6 +77,14 @@ MessageWindow::MessageWindow(QWidget *parent)
     // Initialize the random number generator
     QTime time(QTime::currentTime());
     srand(uint(time.msecsSinceStartOfDay()));
+
+    QList<QScreen*> screens = QApplication::screens();
+    if(screens.count() > 1) {
+        QRect screenres = screens.at(1)->geometry();
+        QPoint point = QPoint(screenres.x(), screenres.y());
+        move(point);
+        resize(screenres.width(), screenres.height());
+    }
 
     // The "Move Label" Timer
     connect(&moveTimer, SIGNAL(timeout()),

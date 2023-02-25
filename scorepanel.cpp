@@ -76,6 +76,7 @@ ScorePanel::ScorePanel(const QString &serverUrl, QFile *myLogFile, QWidget *pare
     , tiltPin(TILT_PIN)// BCM26 IS Pin 37 in the 40 pin GPIO connector.
     , gpioHostHandle(-1)
 {
+
     iCurrentSpot  = 0;
     iCurrentSlide = 0;
 
@@ -138,6 +139,13 @@ ScorePanel::ScorePanel(const QString &serverUrl, QFile *myLogFile, QWidget *pare
     connect(&refreshTimer, SIGNAL(timeout()),
             this, SLOT(onTimeToRefreshStatus()));
 
+    QList<QScreen*> screens = QApplication::screens();
+    if(screens.count() > 1) {
+        QRect screenres = screens.at(1)->geometry();
+        QPoint point = QPoint(screenres.x(), screenres.y());
+        move(point);
+        resize(screenres.width(), screenres.height());
+    }
 }
 
 

@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <QCoreApplication>
+#include <QApplication>
 #include <QNetworkInterface>
 #include <QNetworkAddressEntry>
 #include <QUdpSocket>
@@ -55,8 +56,10 @@ ServerDiscoverer::ServerDiscoverer(QFile *myLogFile, QObject *parent)
     , pNoServerWindow(Q_NULLPTR)
     , pScorePanel(Q_NULLPTR)
 {
+    // Create a message window
     pNoServerWindow = new MessageWindow(Q_NULLPTR);
     pNoServerWindow->setDisplayedText(tr("In Attesa della Connessione con il Server"));
+    pNoServerWindow->showFullScreen();
 }
 
 

@@ -1,0 +1,21 @@
+Screen numbers start at 0. An index of -1 will give you the default screen.
+
+Lets say you have 2 hd monitors side by side.
+There are 3 different rectangles returned by different QDesktopWidget methods:
+
+    screen(index)->rect() will give you a rectangle (0,0,1920x1080) on both indices
+    screenGeometry(index) will give you (0,0,1920x1080) on first and (1920,0,1920x1080) on the second
+    availableGeometry(index) is the actual usable space on the screen, so for example on Windows the space without the taskbar and any pinned sidebars. On mac I suppose this would be the space without the top app bar(whatever you hipsters call it :) ), so this will be something like (0,40,1920x1040) and (1920,40,1920x1040) depending on the size and placement of bars.
+
+So to move a window to another screen you pick the screen you want it on, get its available geometry and use move with a point inside that rectangle.
+You can figure out which monitor is to the left, bottom etc. from the default one by analyzing these rectangles.
+
+
+
+I use this code for the second display in full screen successfully on both Windows & Linux
+
+QRect screenres = QApplication::desktop()->screenGeometry(1/*screenNumber*/);
+SecondDisplay secondDisplay = new SecondDisplay(); // Use your QWidget
+secondDisplay->move(QPoint(screenres.x(), screenres.y()));
+secondDisplay->resize(screenres.width(), screenres.height());
+secondDisplay->showFullScreen();

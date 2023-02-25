@@ -50,3 +50,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     VolleyPanel.qrc
+
+DISTFILES += \
+    Notes.txt
