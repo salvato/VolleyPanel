@@ -741,7 +741,7 @@ ScorePanel::onSpotClosed(int exitCode, QProcess::ExitStatus exitStatus) {
         }
 #endif
     } // if(videoPlayer)
-    show(); // Restore the Score Panel
+    showFullScreen(); // Restore the Score Panel
 }
 
 
@@ -776,7 +776,7 @@ ScorePanel::onLiveClosed(int exitCode, QProcess::ExitStatus exitStatus) {
         }
 #endif
     } // if(cameraPlayer)
-    show(); // Restore the Score Panel
+    showFullScreen(); // Restore the Score Panel
 }
 
 
@@ -789,7 +789,7 @@ void
 ScorePanel::onStartNextSpot(int exitCode, QProcess::ExitStatus exitStatus) {
     Q_UNUSED(exitCode);
     Q_UNUSED(exitStatus);
-    show(); // Ripristina lo Score Panel
+    showFullScreen(); // Ripristina lo Score Panel
     // Update spot list just in case we are updating the spot list...
     QDir spotDir(sSpotDir);
     spotList = QFileInfoList();
@@ -822,11 +822,31 @@ ScorePanel::onStartNextSpot(int exitCode, QProcess::ExitStatus exitStatus) {
     iCurrentSpot = iCurrentSpot % spotList.count();
     if(!videoPlayer) {
         videoPlayer = new QProcess(this);
-        connect(videoPlayer, SIGNAL(finished(int, QProcess::ExitStatus)),
-                this, SLOT(onStartNextSpot(int, QProcess::ExitStatus)));
+        connect(videoPlayer, SIGNAL(finished(int,QProcess::ExitStatus)),
+                this, SLOT(onStartNextSpot(int,QProcess::ExitStatus)));
     }
-    QString sCommand = "/usr/bin/cvlc";
-    QStringList sArguments = QStringList{"--no-osd", "--fullscreen", spotList.at(iCurrentSpot).absoluteFilePath(), "vlc://quit"};
+
+    QString sCommand = "/usr/bin/ffplay";
+    QStringList sArguments;
+    sArguments = QStringList{"-noborder",
+                             "-sn",
+                             "-autoexit",
+                             "-fs"
+                            };
+    QList<QScreen*> screens = QApplication::screens();
+    if(screens.count() > 1) {
+        QRect screenres = screens.at(1)->geometry();
+        sArguments.append(QString("-left"));
+        sArguments.append(QString("%1").arg(screenres.x()));
+        sArguments.append(QString("-top"));
+        sArguments.append(QString("%1").arg(screenres.y()));
+        sArguments.append(QString("-x"));
+        sArguments.append(QString("%1").arg(screenres.width()));
+        sArguments.append(QString("-y"));
+        sArguments.append(QString("%1").arg(screenres.height()));
+    }
+    sArguments.append(spotList.at(iCurrentSpot).absoluteFilePath());
+
     videoPlayer->start(sCommand, sArguments);
 #ifdef LOG_VERBOSE
     logMessage(logFile,
@@ -1212,8 +1232,28 @@ ScorePanel::startSpotLoop() {
             videoPlayer = new QProcess(this);
             connect(videoPlayer, SIGNAL(finished(int, QProcess::ExitStatus)),
                     this, SLOT(onStartNextSpot(int, QProcess::ExitStatus)));
-            QString sCommand = "/usr/bin/cvlc";
-            QStringList sArguments = QStringList{"--no-osd", "--fullscreen", spotList.at(iCurrentSpot).absoluteFilePath(), "vlc://quit"};
+
+            QString sCommand = "/usr/bin/ffplay";
+            QStringList sArguments;
+            sArguments = QStringList{"-noborder",
+                                     "-sn",
+                                     "-autoexit",
+                                     "-fs"
+                                    };
+            QList<QScreen*> screens = QApplication::screens();
+            if(screens.count() > 1) {
+                QRect screenres = screens.at(1)->geometry();
+                sArguments.append(QString("-left"));
+                sArguments.append(QString("%1").arg(screenres.x()));
+                sArguments.append(QString("-top"));
+                sArguments.append(QString("%1").arg(screenres.y()));
+                sArguments.append(QString("-x"));
+                sArguments.append(QString("%1").arg(screenres.width()));
+                sArguments.append(QString("-y"));
+                sArguments.append(QString("%1").arg(screenres.height()));
+            }
+            sArguments.append(spotList.at(iCurrentSpot).absoluteFilePath());
+
             videoPlayer->start(sCommand, sArguments);
 #ifdef LOG_VERBOSE
             logMessage(logFile,
@@ -1283,7 +1323,7 @@ void
 ScorePanel::stopSlideShow() {
     if(pMySlideWindow) {
         pMySlideWindow->stopSlideShow();
-        show(); // Show the Score Panel
+        showFullScreen(); // Show the Score Panel
         pMySlideWindow->hide();
     }
 }

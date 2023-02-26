@@ -45,7 +45,8 @@ VolleyPanel::VolleyPanel(const QString& myServerUrl, QFile *myLogFile, QWidget *
     panelGradient.setColorAt(0, QColor(0, 0, START_GRADIENT));
     panelGradient.setColorAt(1, QColor(0, 0, END_GRADIENT));
     panelBrush = QBrush(panelGradient);
-    panelPalette.setBrush(QPalette::Active, QPalette::Window, panelBrush);
+    panelPalette.setBrush(QPalette::Active,   QPalette::Window, panelBrush);
+    panelPalette.setBrush(QPalette::Inactive, QPalette::Window, panelBrush);
     panelPalette.setColor(QPalette::WindowText,    Qt::yellow);
     panelPalette.setColor(QPalette::Base,          Qt::black);
     panelPalette.setColor(QPalette::AlternateBase, Qt::blue);
