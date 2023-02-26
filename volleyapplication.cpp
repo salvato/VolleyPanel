@@ -27,7 +27,7 @@ VolleyApplication::VolleyApplication(int &argc, char **argv)
                QString("Initial Language: %1").arg(sLanguage));
 #endif
     if(sLanguage == QString("English")) {
-        if(Translator.load(":/panelChooser_en"))
+        if(Translator.load(":/VolleyPanel_en_US.ts"))
             QCoreApplication::installTranslator(&Translator);
     }
 
