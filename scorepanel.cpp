@@ -1157,8 +1157,8 @@ void
 ScorePanel::stopLiveCamera() {
     if(cameraPlayer) {
         cameraPlayer->disconnect();
-        connect(cameraPlayer, SIGNAL(finished(int, QProcess::ExitStatus)),
-                this, SLOT(onLiveClosed(int, QProcess::ExitStatus)));
+        connect(cameraPlayer, SIGNAL(finished(int,QProcess::ExitStatus)),
+                this, SLOT(onLiveClosed(int,QProcess::ExitStatus)));
         cameraPlayer->terminate();
 #ifdef LOG_VERBOSE
         logMessage(logFile,
@@ -1230,8 +1230,8 @@ ScorePanel::startSpotLoop() {
         iCurrentSpot = iCurrentSpot % spotList.count();
         if(!videoPlayer) {
             videoPlayer = new QProcess(this);
-            connect(videoPlayer, SIGNAL(finished(int, QProcess::ExitStatus)),
-                    this, SLOT(onStartNextSpot(int, QProcess::ExitStatus)));
+            connect(videoPlayer, SIGNAL(finished(int,QProcess::ExitStatus)),
+                    this, SLOT(onStartNextSpot(int,QProcess::ExitStatus)));
 
             QString sCommand = "/usr/bin/ffplay";
             QStringList sArguments;
@@ -1286,8 +1286,8 @@ void
 ScorePanel::stopSpotLoop() {
     if(videoPlayer) {
         videoPlayer->disconnect();
-        connect(videoPlayer, SIGNAL(finished(int, QProcess::ExitStatus)),
-                this, SLOT(onSpotClosed(int, QProcess::ExitStatus)));
+        connect(videoPlayer, SIGNAL(finished(int,QProcess::ExitStatus)),
+                this, SLOT(onSpotClosed(int,QProcess::ExitStatus)));
         videoPlayer->terminate();
     }
 }
